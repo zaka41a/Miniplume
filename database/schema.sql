@@ -1,0 +1,69 @@
+CREATE TABLE users (
+id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+name VARCHAR(100) NOT NULL,
+email VARCHAR(190) NOT NULL UNIQUE,
+password_hash VARCHAR(255) NOT NULL,
+role ENUM('admin','author','reader') NOT NULL DEFAULT 'reader',
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE posts (
+id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+user_id INT UNSIGNED NOT NULL,
+title VARCHAR(200) NOT NULL,
+slug VARCHAR(200) NOT NULL UNIQUE,
+body MEDIUMTEXT NOT NULL,
+cover_path VARCHAR(255) NULL,
+published_at DATETIME NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP NULL,
+CONSTRAINT fk_posts_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+INDEX idx_posts_slug (slug)
+);
+
+
+CREATE TABLE tags (
+id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+name VARCHAR(100) NOT NULL,
+slug VARCHAR(120) NOT NULL UNIQUE,
+INDEX idx_tags_slug (slug)
+);
+
+
+CREATE TABLE post_tag (
+post_id INT UNSIGNED NOT NULL,
+tag_id INT UNSIGNED NOT NULL,
+PRIMARY KEY (post_id, tag_id),
+FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
+FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE comments (
+id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+post_id INT UNSIGNED NOT NULL,
+author_name VARCHAR(100) NOT NULL,
+author_email VARCHAR(190) NOT NULL,
+body TEXT NOT NULL,
+status ENUM('approved','pending','spam') NOT NULL DEFAULT 'pending',
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
+INDEX idx_comments_post_status (post_id, status)
+);
+
+
+-- Rate limit login simple par IP
+CREATE TABLE login_attempts (
+ip VARBINARY(16) NOT NULL PRIMARY KEY, -- INET6_ATON en MariaDB/MySQL 8 via INET6_ATON()/INET6_NTOA()
+attempts TINYINT UNSIGNED NOT NULL DEFAULT 0,
+last_attempt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+INSERT INTO users(name,email,password_hash,role)
+VALUES
+('Admin','admin@example.com',
+'$2y$10$EXEMPLEA_REMPLACER_PAR_password_hash', 'admin'),
+('Alice Auteur','alice@example.com',
+'$2y$10$EXEMPLEA_REMPLACER_PAR_password_hash', 'author');
