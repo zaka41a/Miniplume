@@ -7,11 +7,12 @@ class DashboardController {
     }
 
     public function login() {
+    \csrf_check();
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
 
     if (!$email || !$password) {
-        $_SESSION['flash'] = ['type'=>'error','msg'=>'Email ou mot de passe manquant'];
+        $_SESSION['flash'] = ['type'=>'error','msg'=>'E-Mail oder Passwort fehlt'];
         return redirect('/login');
     }
 
@@ -30,14 +31,15 @@ class DashboardController {
         return redirect('/');                               // reader -> accueil
     }
 
-    $_SESSION['flash'] = ['type'=>'error','msg'=>'Identifiants incorrects'];
+    $_SESSION['flash'] = ['type'=>'error','msg'=>'Ungültige Anmeldedaten'];
     return redirect('/login');
 }
 
 
     public function logout() {
+        \csrf_check();
         \Auth::logout();
-        $_SESSION['flash'] = ['type'=>'success','msg'=>'Déconnecté'];
+        $_SESSION['flash'] = ['type'=>'success','msg'=>'Abgemeldet'];
         return redirect('/');
     }
 }

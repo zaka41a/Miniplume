@@ -10,8 +10,9 @@ class CommentAdminController {
   }
   public function setStatus($id){
     \requireRole(['admin','author']);
+    \csrf_check();
     $status=in_array($_POST['status']??'', ['approved','pending','spam'], true) ? $_POST['status'] : 'pending';
     (new Comment())->setStatus((int)$id, $status);
-    $_SESSION['flash']=['type'=>'success','msg'=>'Statut mis à jour']; return redirect('/admin/comments');
+    $_SESSION['flash']=['type'=>'success','msg'=>'Status aktualisiert']; return redirect('/admin/comments');
   }
 }

@@ -6,14 +6,16 @@ class UserAdminController {
   public function create(){ \requireRole(['admin']); render('admin/users-form', ['user'=>null]); }
   public function store(){
     \requireRole(['admin']);
+    \csrf_check();
     (new User())->create(trim($_POST['name']), trim($_POST['email']), $_POST['password'], $_POST['role']);
-    $_SESSION['flash']=['type'=>'success','msg'=>'Utilisateur créé']; return redirect('/admin/users');
+    $_SESSION['flash']=['type'=>'success','msg'=>'Benutzer erstellt']; return redirect('/admin/users');
   }
   public function edit($id){ \requireRole(['admin']); $user=(new User())->find((int)$id); render('admin/users-form', compact('user')); }
   public function update($id){
     \requireRole(['admin']);
+    \csrf_check();
     (new User())->updateUser((int)$id, trim($_POST['name']), trim($_POST['email']), ($_POST['password']??'') ?: null, $_POST['role']);
-    $_SESSION['flash']=['type'=>'success','msg'=>'Utilisateur mis à jour']; return redirect('/admin/users');
+    $_SESSION['flash']=['type'=>'success','msg'=>'Benutzer aktualisiert']; return redirect('/admin/users');
   }
-  public function destroy($id){ \requireRole(['admin']); (new User())->delete((int)$id); $_SESSION['flash']=['type'=>'success','msg'=>'Utilisateur supprimé']; return redirect('/admin/users'); }
+  public function destroy($id){ \requireRole(['admin']); \csrf_check(); (new User())->delete((int)$id); $_SESSION['flash']=['type'=>'success','msg'=>'Benutzer gelöscht']; return redirect('/admin/users'); }
 }

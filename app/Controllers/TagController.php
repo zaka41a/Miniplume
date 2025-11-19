@@ -3,12 +3,11 @@ namespace App\Controllers;
 
 use App\Models\Post;
 use App\Models\Tag;
-use function paginate;
 
 class TagController {
     public function show($slug) {
         $tag = (new Tag())->findBySlug($slug);
-        if (!$tag) { http_response_code(404); exit('Tag introuvable'); }
+        if (!$tag) { http_response_code(404); exit('Tag nicht gefunden'); }
 
         $page = max(1, (int)($_GET['page'] ?? 1));
         $per  = 10;

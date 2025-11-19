@@ -8,12 +8,13 @@ class TagAdminController {
   }
   public function store(){
     \requireRole(['admin','author']);
+    \csrf_check();
     $name=trim($_POST['name']??''); if(!$name){ return redirect('/admin/tags'); }
     (new Tag())->create($name, slugify($name));
-    $_SESSION['flash']=['type'=>'success','msg'=>'Tag créé']; return redirect('/admin/tags');
+    $_SESSION['flash']=['type'=>'success','msg'=>'Tag erstellt']; return redirect('/admin/tags');
   }
   public function destroy($id){
-    \requireRole(['admin']); (new Tag())->delete((int)$id);
-    $_SESSION['flash']=['type'=>'success','msg'=>'Tag supprimé']; return redirect('/admin/tags');
+    \requireRole(['admin']); \csrf_check(); (new Tag())->delete((int)$id);
+    $_SESSION['flash']=['type'=>'success','msg'=>'Tag gelöscht']; return redirect('/admin/tags');
   }
 }

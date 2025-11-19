@@ -1,5 +1,4 @@
 <?php
-use function db;
 
 class Auth {
   public static function attempt(string $email, string $password): bool {

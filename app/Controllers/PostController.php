@@ -5,7 +5,7 @@ public function show($slug)
 {
   $post = (new \App\Models\Post())->findBySlug($slug);
   if (!$post || empty($post['published_at'])) {
-    http_response_code(404); exit('Article introuvable');
+    http_response_code(404); exit('Artikel nicht gefunden');
   }
 
   $comments = (new \App\Models\Comment())->approvedForPost((int)$post['id']);

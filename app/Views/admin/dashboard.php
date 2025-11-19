@@ -1,28 +1,28 @@
-<?php $title='Administration'; ?>
+<?php $title='Verwaltung'; ?>
 <section class="hero">
-  <div class="kicker">Tableau de bord</div>
-  <h1>Administration</h1>
+  <div class="kicker">Dashboard</div>
+  <h1>Verwaltung</h1>
 </section>
 
 <div class="grid-cards">
   <a class="tile" href="/admin/users">
-    <div class="tile-title">Utilisateurs</div>
-    <div class="tile-sub">Créer / éditer / supprimer</div>
+    <div class="tile-title">Benutzer</div>
+    <div class="tile-sub">Erstellen / bearbeiten / löschen</div>
   </a>
 
   <a class="tile" href="/admin/posts">
-    <div class="tile-title">Articles</div>
-    <div class="tile-sub">Gérer tous les articles</div>
+    <div class="tile-title">Artikel</div>
+    <div class="tile-sub">Alle Artikel verwalten</div>
   </a>
 
   <a class="tile" href="/admin/tags">
     <div class="tile-title">Tags</div>
-    <div class="tile-sub">Organiser les sujets</div>
+    <div class="tile-sub">Themen organisieren</div>
   </a>
 
   <a class="tile" href="/admin/comments">
-    <div class="tile-title">Commentaires</div>
-    <div class="tile-sub">Modération & supprimés</div>
+    <div class="tile-title">Kommentare</div>
+    <div class="tile-sub">Moderation & gelöschte</div>
   </a>
 </div>
 

@@ -53,6 +53,24 @@ INDEX idx_comments_post_status (post_id, status)
 );
 
 
+CREATE TABLE ads (
+id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+title VARCHAR(200) NOT NULL,
+description TEXT NULL,
+url VARCHAR(500) NOT NULL,
+image_path VARCHAR(255) NULL,
+position ENUM('sidebar','header','footer','content') NOT NULL DEFAULT 'sidebar',
+status ENUM('active','inactive') NOT NULL DEFAULT 'active',
+clicks INT UNSIGNED NOT NULL DEFAULT 0,
+views INT UNSIGNED NOT NULL DEFAULT 0,
+start_date DATE NULL,
+end_date DATE NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+INDEX idx_ads_status_position (status, position)
+);
+
+
 -- Rate limit login simple par IP
 CREATE TABLE login_attempts (
 ip VARBINARY(16) NOT NULL PRIMARY KEY, -- INET6_ATON en MariaDB/MySQL 8 via INET6_ATON()/INET6_NTOA()

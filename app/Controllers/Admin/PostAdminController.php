@@ -19,11 +19,12 @@ class PostAdminController {
 
   public function store() {
     \requireRole(['admin','author']);
+    \csrf_check();
 
     $title = trim($_POST['title'] ?? '');
     if ($title === '') {
-      $_SESSION['flash'] = ['type'=>'error','msg'=>'Le titre est requis'];
-      $_SESSION['form_error'] = 'Le titre est requis.';
+      $_SESSION['flash'] = ['type'=>'error','msg'=>'Der Titel ist erforderlich'];
+      $_SESSION['form_error'] = 'Der Titel ist erforderlich.';
       return redirect('/admin/posts/create');
     }
 
@@ -42,21 +43,21 @@ class PostAdminController {
       $ok  = ['image/jpeg'=>'jpg','image/png'=>'png','image/webp'=>'webp'];
 
       if ($_FILES['cover']['size'] > $max) {
-        $_SESSION['flash'] = ['type'=>'error','msg'=>'Image trop lourde (> 2 Mo)'];
-        $_SESSION['form_error'] = 'Image trop lourde (> 2 Mo).';
+        $_SESSION['flash'] = ['type'=>'error','msg'=>'Bild zu groß (> 2 MB)'];
+        $_SESSION['form_error'] = 'Bild zu groß (> 2 MB).';
         return redirect('/admin/posts/create');
       }
       $mime = (new \finfo(FILEINFO_MIME_TYPE))->file($_FILES['cover']['tmp_name']);
       if (!isset($ok[$mime])) {
-        $_SESSION['flash'] = ['type'=>'error','msg'=>'Type d’image non autorisé'];
-        $_SESSION['form_error'] = 'Type d’image non autorisé (jpeg/png/webp).';
+        $_SESSION['flash'] = ['type'=>'error','msg'=>'Bildtyp nicht erlaubt'];
+        $_SESSION['form_error'] = 'Bildtyp nicht erlaubt (jpeg/png/webp).';
         return redirect('/admin/posts/create');
       }
       $name = bin2hex(random_bytes(8)).'.'.$ok[$mime];
       $dest = __DIR__.'/../../../public/uploads/'.$name;
       if (!move_uploaded_file($_FILES['cover']['tmp_name'], $dest)) {
-        $_SESSION['flash'] = ['type'=>'error','msg'=>'Échec de l’upload'];
-        $_SESSION['form_error'] = 'Échec de l’upload de l’image.';
+        $_SESSION['flash'] = ['type'=>'error','msg'=>'Upload fehlgeschlagen'];
+        $_SESSION['form_error'] = 'Hochladen des Bildes fehlgeschlagen.';
         return redirect('/admin/posts/create');
       }
       $cover = $name;
@@ -74,7 +75,7 @@ class PostAdminController {
     // Nettoyage message de formulaire si tout est OK
     unset($_SESSION['form_error']);
 
-    $_SESSION['flash'] = ['type'=>'success','msg'=>'Article créé'];
+    $_SESSION['flash'] = ['type'=>'success','msg'=>'Artikel erstellt'];
     return redirect('/admin/posts');
   }
 
@@ -96,11 +97,12 @@ class PostAdminController {
 
   public function update($id) {
     \requireRole(['admin','author']);
+    \csrf_check();
 
     $title = trim($_POST['title'] ?? '');
     if ($title === '') {
-      $_SESSION['flash'] = ['type'=>'error','msg'=>'Le titre est requis'];
-      $_SESSION['form_error'] = 'Le titre est requis.';
+      $_SESSION['flash'] = ['type'=>'error','msg'=>'Der Titel ist erforderlich'];
+      $_SESSION['form_error'] = 'Der Titel ist erforderlich.';
       return redirect('/admin/posts/'.$id.'/edit');
     }
 
@@ -118,21 +120,21 @@ class PostAdminController {
       $ok  = ['image/jpeg'=>'jpg','image/png'=>'png','image/webp'=>'webp'];
 
       if ($_FILES['cover']['size'] > $max) {
-        $_SESSION['flash'] = ['type'=>'error','msg'=>'Image trop lourde (> 2 Mo)'];
-        $_SESSION['form_error'] = 'Image trop lourde (> 2 Mo).';
+        $_SESSION['flash'] = ['type'=>'error','msg'=>'Bild zu groß (> 2 MB)'];
+        $_SESSION['form_error'] = 'Bild zu groß (> 2 MB).';
         return redirect('/admin/posts/'.$id.'/edit');
       }
       $mime = (new \finfo(FILEINFO_MIME_TYPE))->file($_FILES['cover']['tmp_name']);
       if (!isset($ok[$mime])) {
-        $_SESSION['flash'] = ['type'=>'error','msg'=>'Type d’image non autorisé'];
-        $_SESSION['form_error'] = 'Type d’image non autorisé (jpeg/png/webp).';
+        $_SESSION['flash'] = ['type'=>'error','msg'=>'Bildtyp nicht erlaubt'];
+        $_SESSION['form_error'] = 'Bildtyp nicht erlaubt (jpeg/png/webp).';
         return redirect('/admin/posts/'.$id.'/edit');
       }
       $name = bin2hex(random_bytes(8)).'.'.$ok[$mime];
       $dest = __DIR__.'/../../../public/uploads/'.$name;
       if (!move_uploaded_file($_FILES['cover']['tmp_name'], $dest)) {
-        $_SESSION['flash'] = ['type'=>'error','msg'=>'Échec de l’upload'];
-        $_SESSION['form_error'] = 'Échec de l’upload de l’image.';
+        $_SESSION['flash'] = ['type'=>'error','msg'=>'Upload fehlgeschlagen'];
+        $_SESSION['form_error'] = 'Hochladen des Bildes fehlgeschlagen.';
         return redirect('/admin/posts/'.$id.'/edit');
       }
       $cover = $name;
@@ -148,14 +150,15 @@ class PostAdminController {
 
     unset($_SESSION['form_error']);
 
-    $_SESSION['flash'] = ['type'=>'success','msg'=>'Article mis à jour'];
+    $_SESSION['flash'] = ['type'=>'success','msg'=>'Artikel aktualisiert'];
     return redirect('/admin/posts');
   }
 
   public function destroy($id) {
     \requireRole(['admin','author']);
+    \csrf_check();
     (new Post())->delete((int)$id);
-    $_SESSION['flash'] = ['type'=>'success','msg'=>'Article supprimé'];
+    $_SESSION['flash'] = ['type'=>'success','msg'=>'Artikel gelöscht'];
     return redirect('/admin/posts');
   }
 }

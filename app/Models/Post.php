@@ -120,13 +120,14 @@ class Post extends BaseModel
       JOIN users u ON u.id = p.user_id
       JOIN post_tag pt ON pt.post_id = p.id
       JOIN tags t ON t.id = pt.tag_id
-      WHERE t.slug = ? AND p.published_at IS NOT NULL
+      WHERE t.slug = :slug AND p.published_at IS NOT NULL
       ORDER BY p.published_at DESC
       LIMIT :l OFFSET :o
     ");
+    $s->bindValue(':slug', $tagSlug, \PDO::PARAM_STR);
     $s->bindValue(':l', $limit, \PDO::PARAM_INT);
     $s->bindValue(':o', $offset, \PDO::PARAM_INT);
-    $s->execute([$tagSlug]);
+    $s->execute();
     return $s->fetchAll();
   }
 

@@ -1,0 +1,57 @@
+<svg width="200" height="44" viewBox="0 0 200 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon Container -->
+  <g>
+    <!-- Outer Hexagon Ring -->
+    <path d="M22 4 L32 10 L32 22 L22 28 L12 22 L12 10 Z"
+          stroke="#8b5cf6"
+          stroke-width="1.8"
+          fill="none"
+          stroke-linejoin="round"
+          opacity="0.4"/>
+
+    <!-- Main Circle Background -->
+    <circle cx="22" cy="16" r="13.5" fill="#8b5cf6"/>
+
+    <!-- Decorative Inner Ring -->
+    <circle cx="22" cy="16" r="11" stroke="#c4b5fd" stroke-width="1.5" fill="none" opacity="0.6"/>
+
+    <!-- Elegant Feather/Plume Design -->
+    <g transform="translate(15, 7)">
+      <!-- Main Feather Curve -->
+      <path d="M7 2C7 2 8.5 4 8.5 8C8.5 12 7 16 7 16"
+            stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="1"/>
+
+      <!-- Left Barbs -->
+      <path d="M7 4.5L4.5 6.5" stroke="white" stroke-width="1.2" stroke-linecap="round" opacity="0.85"/>
+      <path d="M7 7L5 8.5" stroke="white" stroke-width="1.2" stroke-linecap="round" opacity="0.85"/>
+      <path d="M7 10L5.5 11" stroke="white" stroke-width="1.2" stroke-linecap="round" opacity="0.85"/>
+      <path d="M7 13L6 13.5" stroke="white" stroke-width="1" stroke-linecap="round" opacity="0.75"/>
+
+      <!-- Right Barbs -->
+      <path d="M7 4.5L9.5 6.5" stroke="white" stroke-width="1.2" stroke-linecap="round" opacity="0.85"/>
+      <path d="M7 7L9 8.5" stroke="white" stroke-width="1.2" stroke-linecap="round" opacity="0.85"/>
+      <path d="M7 10L8.5 11" stroke="white" stroke-width="1.2" stroke-linecap="round" opacity="0.85"/>
+      <path d="M7 13L8 13.5" stroke="white" stroke-width="1" stroke-linecap="round" opacity="0.75"/>
+
+      <!-- Quill Tip -->
+      <path d="M7 16L7 19" stroke="white" stroke-width="1.6" stroke-linecap="round" opacity="1"/>
+      <circle cx="7" cy="19.5" r="0.8" fill="white" opacity="0.9"/>
+    </g>
+
+    <!-- Accent Sparkles -->
+    <circle cx="30" cy="8" r="1.2" fill="white" opacity="0.7"/>
+    <circle cx="14" cy="24" r="1" fill="white" opacity="0.6"/>
+    <circle cx="32" cy="20" r="0.8" fill="#c4b5fd" opacity="0.8"/>
+  </g>
+
+  <!-- Text "Miniplume" -->
+  <text x="48" y="29"
+        font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+        font-size="22"
+        font-weight="800"
+        fill="#1e293b"
+        letter-spacing="-0.8">
+    Miniplume
+  </text>
+
+</svg>

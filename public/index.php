@@ -61,8 +61,13 @@ $router->group('/admin', function($r) {
   $r->post('/users/{id}/update',  [App\Controllers\Admin\UserAdminController::class,'update']);
   $r->post('/users/{id}/delete',  [App\Controllers\Admin\UserAdminController::class,'destroy']);
 
-  // (Placeholder) Publicités
-  $r->get('/ads',                 [App\Controllers\Admin\AdsAdminController::class,'index']); // à créer plus tard
+  // Publicités
+  $r->get('/ads',                 [App\Controllers\Admin\AdsAdminController::class,'index']);
+  $r->get('/ads/create',          [App\Controllers\Admin\AdsAdminController::class,'create']);
+  $r->post('/ads',                [App\Controllers\Admin\AdsAdminController::class,'store']);
+  $r->get('/ads/{id}/edit',       [App\Controllers\Admin\AdsAdminController::class,'edit']);
+  $r->post('/ads/{id}/update',    [App\Controllers\Admin\AdsAdminController::class,'update']);
+  $r->post('/ads/{id}/delete',    [App\Controllers\Admin\AdsAdminController::class,'destroy']);
 });
 
 $router->dispatch($_SERVER['REQUEST_METHOD'], strtok($_SERVER['REQUEST_URI'],'?'));

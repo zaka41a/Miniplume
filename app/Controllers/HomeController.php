@@ -2,10 +2,6 @@
 namespace App\Controllers;
 
 use App\Models\Post;
-use function paginate;
-use function render;
-use function baseUrl;
-use function esc;
 
 class HomeController
 {
