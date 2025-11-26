@@ -412,7 +412,7 @@ For issues, questions, or contributions:
 
 - 🐛 [Report a Bug](https://github.com/yourusername/Miniplume/issues)
 - 💡 [Request a Feature](https://github.com/yourusername/Miniplume/issues/new)
-- 📧 Contact: your.email@example.com
+- 📧 Contact: zaksab98@gmail.com
 
 ---
 
